@@ -1,0 +1,141 @@
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: inherit;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--Neutral600);
+  border-radius: 5px;
+}
+
+:root {
+  --Neutral900: rgb(3, 1, 45);
+  --Neutral800: rgb(40, 38, 64);
+  --Neutral700: rgb(49, 47, 75);
+  --Neutral600: rgb(61, 59, 94);
+  --Neutral300: rgb(174, 174, 183);
+  --Neutral200: rgb(213, 212, 217);
+  --Neutral0: rgb(255, 255, 255);
+
+  --Orange500: rgb(255, 124, 10);
+
+  --Blue500: rgb(68, 85, 218);
+  --Blue700: rgb(45, 28, 156);
+}
+
+body {
+  background-color: var(--Neutral900);
+  font-family: cursive;
+}
+
+p{
+  margin-bottom: 0;
+}
+
+optgroup{
+  color: var(--Neutral300);
+}
+
+.nav-link {
+  background-color: var(--Neutral700);
+}
+
+
+
+.dropdown-menu {
+  background-color: var(--Neutral700);
+}
+
+.dropdown-item:hover {
+  background-color: var(--Neutral600) !important;
+  cursor: pointer;
+}
+
+.search-input {
+  background-color: var(--Neutral700);
+  border: 0;
+  width: 30%;
+  color: rgba(255, 255, 255, 0.674);
+}
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.674);
+}
+
+.search-button {
+  background-color: var(--Blue500);
+}
+
+.search-button:focus {
+  background-color: var(--Blue700) !important;
+  border: 0;
+  box-shadow:
+    0 0 0 2px var(--Neutral900),
+    0 0 0 4px var(--Blue700) !important;
+}
+
+.search-button:hover {
+  background-color: var(--Blue700);
+}
+
+.search-icon {
+  position: absolute;
+  left: 425px;
+  top: 10px;
+}
+
+.current-weather {
+  background-image: url("../images/bg-today-large.svg");
+  background-size: cover;
+  object-fit: cover;
+  height: 200px;
+}
+
+.feels-like,
+.humidity,
+.wind,
+.precipitation {
+  background-color: var(--Neutral700);
+  padding: 10px 15px;
+}
+
+#week-days {
+  width: 90px;
+  background-color: var(--Neutral700);
+}
+
+.hourly-forecast {
+  background-color: var(--Neutral800);
+  height: 530px;
+  overflow: auto;
+}
+
+.hourly-forecast .title {
+  width: 24%;
+  background-color: inherit;
+}
+
+.hourly-forecast .dropdown-toggle {
+  background-color: var(--Neutral600);
+  border: 0;
+}
+
+.hourly-forecast .dropdown-toggle:hover , a.dropdown-toggle:hover{
+  box-shadow: 0 0 0 2px black, 0 0 0 3px white !important;
+  background-color: var(--Neutral700) !important;
+}
+
+
+
+.hourly-status {
+  background-color: var(--Neutral700);
+  margin-top: 7px;
+}
+
+.hourly-status .caption img {
+  width: 40px;
+}
