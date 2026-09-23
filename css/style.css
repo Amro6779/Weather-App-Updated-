@@ -33,6 +33,10 @@ body {
   font-family: cursive;
 }
 
+main{
+  height: 87vh;
+}
+
 p{
   margin-bottom: 0;
 }
@@ -46,15 +50,10 @@ optgroup{
 }
 
 
-
 .dropdown-menu {
   background-color: var(--Neutral700);
 }
 
-.dropdown-item:hover {
-  background-color: var(--Neutral600) !important;
-  cursor: pointer;
-}
 
 .search-input {
   background-color: var(--Neutral700);
@@ -70,16 +69,12 @@ optgroup{
   background-color: var(--Blue500);
 }
 
-.search-button:focus {
+.search-button:hover {
   background-color: var(--Blue700) !important;
   border: 0;
   box-shadow:
     0 0 0 2px var(--Neutral900),
     0 0 0 4px var(--Blue700) !important;
-}
-
-.search-button:hover {
-  background-color: var(--Blue700);
 }
 
 .search-icon {
@@ -115,7 +110,7 @@ optgroup{
 }
 
 .hourly-forecast .title {
-  width: 24%;
+  width: 23%;
   background-color: inherit;
 }
 
@@ -124,11 +119,11 @@ optgroup{
   border: 0;
 }
 
-.hourly-forecast .dropdown-toggle:hover , a.dropdown-toggle:hover{
-  box-shadow: 0 0 0 2px black, 0 0 0 3px white !important;
-  background-color: var(--Neutral700) !important;
+.hourly-forecast .dropdown-toggle:hover , a.dropdown-toggle:hover , .dropdown-item:hover{
+  box-shadow: 0 0 0 2px black, 0 0 0 3px white;
+  background-color: var(--Neutral600);
+  cursor: pointer;
 }
-
 
 
 .hourly-status {
@@ -138,4 +133,12 @@ optgroup{
 
 .hourly-status .caption img {
   width: 40px;
+}
+
+.error-img{
+  width: 3%;
+}
+
+.error-message{
+  width: 35%;
 }
