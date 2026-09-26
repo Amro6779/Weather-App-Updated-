@@ -5,6 +5,7 @@
 const searchForm = document.querySelector("#search-form");
 const searchBtn = document.querySelector(".search-button");
 const searchInput = document.querySelector("#search-input");
+const dailyStatus = document.getElementById("daily-data");
 
 //////////////////todo  variables /////////////////
 
@@ -43,10 +44,7 @@ async function getWeatherStatus(lat, lng) {
     let data = await response.json();
     let dailyForecast = dailyData(data.daily);
     let hourlyForeCast = hourlyData(data.hourly);
-    console.log(data);
-    console.log(dailyForecast);
-    console.log(hourlyForeCast);
-    
+    displayDailyWeather(dailyForecast);
   } catch (error) {
     console.log(error);
   }
@@ -63,12 +61,31 @@ function dailyData(daily) {
   });
 }
 
-function hourlyData(hourly){
-  return hourly.time.map((date , index)=>{
+function hourlyData(hourly) {
+  return hourly.time.map((date, index) => {
     return {
-      date : date,
-      code : hourly.weather_code[index],
-      temperature : hourly.temperature_2m[index],
-    }
-  })
+      date: date,
+      code: hourly.weather_code[index],
+      temperature: hourly.temperature_2m[index],
+    };
+  });
+}
+
+function displayDailyWeather(dailyForecast) {
+  let cartoona = ``;
+  for (let i = 0; i < dailyForecast.length; i++) {
+    cartoona += `<div id="week-days" class="tuesday text-center p-2 rounded-3">
+                                    <div class="caption">
+                                        <p class="text-light">${new Date(dailyForecast[i].date).toLocaleDateString("en-US", { weekday: "short" })}</p>
+                                        <img class="w-75" src="./images/icon-rain.webp" alt="icon">
+                                    </div>
+                                    <div class="number d-flex justify-content-between">
+                                        <p class="text-light">${dailyForecast[i].max}&deg;</p>
+                                        <p class="text-light">${dailyForecast[i].min}&deg;</p>
+                                    </div>
+                                </div>
+                                `;
+  }
+
+  dailyStatus.innerHTML = cartoona;
 }
