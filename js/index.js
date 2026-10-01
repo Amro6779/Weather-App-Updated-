@@ -6,6 +6,7 @@ const searchForm = document.querySelector("#search-form");
 const searchBtn = document.querySelector(".search-button");
 const searchInput = document.querySelector("#search-input");
 const dailyStatus = document.getElementById("daily-data");
+const hourlyStatus = document.getElementById("weather-per-hour");
 //////////////////todo  variables //////////////////////
 
 const weatherIconMap = {
@@ -43,6 +44,7 @@ const weatherIconMap = {
 
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  searchForPlace(searchInput.value);
 });
 
 //////////////////* functions ///////////////////////
@@ -83,8 +85,13 @@ async function getWeatherStatus(lat, lng, place) {
     let data = await response.json();
     let dailyForecast = dailyData(data.daily);
     let hourlyForeCast = hourlyData(data.hourly);
-    displayDailyWeather(dailyForecast);
+    let filteredHours = filterHourlyByDay(
+      hourlyForeCast,
+      dailyForecast[0].date,
+    );
     displayCurrentWeather(data.current, place);
+    displayDailyWeather(dailyForecast);
+    displayHourlyWeather(filteredHours);
     console.log(data.current);
   } catch (error) {
     console.log(error);
@@ -114,6 +121,22 @@ function hourlyData(hourly) {
       temperature: hourly.temperature_2m[index],
     };
   });
+}
+
+function filterHourlyByDay(hourlyForeCast, day) {
+  return hourlyForeCast.filter((hour) => {
+    return hour.date.startsWith(day);
+  });
+}
+
+async function searchForPlace(placeName) {
+  let placeResponse = await fetch(
+    `https://geocoding-api.open-meteo.com/v1/search?name=${placeName}`,
+  );
+  let placeData = await placeResponse.json();
+  let place = placeData.results[0];
+  let placeInfo = `${place.name} , ${place.country}`;
+  getWeatherStatus(place.latitude, place.longitude, placeInfo);
 }
 
 ////////////////////? display data functions ////////////////////////////////
@@ -152,4 +175,22 @@ function displayDailyWeather(dailyForecast) {
   }
 
   dailyStatus.innerHTML = cartoona;
+}
+
+function displayHourlyWeather(hourlyForecast) {
+  let cartoona = ``;
+
+  for (let i = 0; i < hourlyForecast.length; i++) {
+    cartoona += `<div class="hourly-status d-flex justify-content-between align-items-center p-2 rounded-3">
+                                <div class="caption d-flex align-items-center">
+                                    <img src="./images/${getWeatherIcon(hourlyForecast[i].code)}" alt="icon">
+                                    <p class="text-light">${new Date(hourlyForecast[i].date).toLocaleTimeString("en-US", { hour: "numeric" })}</p>
+                                </div>
+                                <div class="number">
+                                    <p class="text-light">${hourlyForecast[i].temperature} &deg;</p>
+                                </div>
+                            </div>`;
+  }
+
+  hourlyStatus.innerHTML = cartoona;
 }
