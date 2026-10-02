@@ -1,4 +1,4 @@
-"use Strict";
+"use strict";
 
 //////////////////? elements //////////////////////
 
@@ -7,6 +7,9 @@ const searchBtn = document.querySelector(".search-button");
 const searchInput = document.querySelector("#search-input");
 const dailyStatus = document.getElementById("daily-data");
 const hourlyStatus = document.getElementById("weather-per-hour");
+const days = document.getElementById("days");
+const dayName = document.getElementById("day-name");
+
 //////////////////todo  variables //////////////////////
 
 const weatherIconMap = {
@@ -40,6 +43,9 @@ const weatherIconMap = {
   99: "icon-storm.webp",
 };
 
+let currentWeather = {};
+let dailyForecast = [];
+let hourlyForecast = [];
 //////////////////! events ////////////////////////
 
 searchForm.addEventListener("submit", (e) => {
@@ -47,26 +53,42 @@ searchForm.addEventListener("submit", (e) => {
   searchForPlace(searchInput.value);
 });
 
+days.addEventListener("click", (e) => {
+  let button = e.target.closest("li");
+  if (!button) return;
+
+  let dayButton = button.dataset.date;
+  let filteredDays = filterHourlyByDay(hourlyForecast, dayButton);
+  displayHourlyWeather(filteredDays);
+  dayName.textContent = new Date(dayButton).toLocaleDateString("en-US", {
+    weekday: "long",
+  });
+});
+
 //////////////////* functions ///////////////////////
 
-////////////////////! get data functions ////////////////////////////
+////////////////////todo get data functions ////////////////////////////
 
 (function getPosition() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(async (position) => {
-      let response = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.coords.latitude}&lon=${position.coords.longitude}`,
-      );
-      let placeData = await response.json();
-      let country = placeData.address.country;
-      let city = placeData.address.state;
-      let placeName = `${city} , ${country}`;
+      try {
+        let response = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.coords.latitude}&lon=${position.coords.longitude}`,
+        );
+        let placeData = await response.json();
+        let country = placeData.address?.country || "";
+        let city = placeData.address?.city || placeData.address?.state || "";
+        let placeName = `${city} , ${country}`;
 
-      getWeatherStatus(
-        position.coords.latitude,
-        position.coords.longitude,
-        placeName,
-      );
+        getWeatherStatus(
+          position.coords.latitude,
+          position.coords.longitude,
+          placeName,
+        );
+      } catch (err) {
+        console.error("Error fetching location data:", err);
+      }
     });
   }
 })();
@@ -83,15 +105,21 @@ async function getWeatherStatus(lat, lng, place) {
   try {
     let response = await fetch(apiUrl);
     let data = await response.json();
-    let dailyForecast = dailyData(data.daily);
-    let hourlyForeCast = hourlyData(data.hourly);
+    currentWeather = data.current;
+    dailyForecast = dailyData(data.daily);
+    hourlyForecast = hourlyData(data.hourly);
     let filteredHours = filterHourlyByDay(
-      hourlyForeCast,
+      hourlyForecast,
       dailyForecast[0].date,
     );
-    displayCurrentWeather(data.current, place);
+    displayCurrentWeather(currentWeather, place);
     displayDailyWeather(dailyForecast);
     displayHourlyWeather(filteredHours);
+    displayDays(dailyForecast);
+    dayName.textContent = new Date(dailyForecast[0].date).toLocaleDateString(
+      "en-US",
+      { weekday: "long" },
+    );
     console.log(data.current);
   } catch (error) {
     console.log(error);
@@ -123,8 +151,8 @@ function hourlyData(hourly) {
   });
 }
 
-function filterHourlyByDay(hourlyForeCast, day) {
-  return hourlyForeCast.filter((hour) => {
+function filterHourlyByDay(hourlyForecast, day) {
+  return hourlyForecast.filter((hour) => {
     return hour.date.startsWith(day);
   });
 }
@@ -193,4 +221,13 @@ function displayHourlyWeather(hourlyForecast) {
   }
 
   hourlyStatus.innerHTML = cartoona;
+}
+
+function displayDays(day) {
+  let cartoona = ``;
+  for (let i = 0; i < day.length; i++) {
+    cartoona += `<li data-date="${day[i].date}"><a class="dropdown-item text-light rounded-2 mt-2">${new Date(day[i].date).toLocaleDateString("en-US", { weekday: "long" })}</a></li>`;
+  }
+
+  days.innerHTML = cartoona;
 }
