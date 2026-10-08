@@ -5,6 +5,7 @@
 const searchForm = document.querySelector("#search-form");
 const searchBtn = document.querySelector(".search-button");
 const searchInput = document.querySelector("#search-input");
+const switchImperial = document.getElementById("switch-imperial");
 const dailyStatus = document.getElementById("daily-data");
 const hourlyStatus = document.getElementById("weather-per-hour");
 const days = document.getElementById("days");
@@ -44,8 +45,16 @@ const weatherIconMap = {
 };
 
 let currentWeather = {};
+let currentDayDate = "";
 let dailyForecast = [];
 let hourlyForecast = [];
+
+let weatherUnits = {
+  temperature: "celsius",
+  windSpeed: "kmh",
+  precipitation: "mm",
+};
+
 //////////////////! events ////////////////////////
 
 searchForm.addEventListener("submit", (e) => {
@@ -58,11 +67,42 @@ days.addEventListener("click", (e) => {
   if (!button) return;
 
   let dayButton = button.dataset.date;
+  currentDayDate = dayButton;
   let filteredDays = filterHourlyByDay(hourlyForecast, dayButton);
   displayHourlyWeather(filteredDays);
   dayName.textContent = new Date(dayButton).toLocaleDateString("en-US", {
     weekday: "long",
   });
+});
+
+switchImperial.addEventListener("click", (e) => {
+  let button = e.target.closest("a");
+  if (!button) return;
+
+  if (button.dataset.action === "toggle") {
+    if (weatherUnits.temperature === "celsius") {
+      weatherUnits.temperature = "fahrenheit";
+      weatherUnits.windSpeed = "mph";
+      weatherUnits.precipitation = "inches";
+      document.getElementById("switch-button").textContent = "switch to metric";
+    } else {
+      weatherUnits.temperature = "celsius";
+      weatherUnits.windSpeed = "kmh";
+      weatherUnits.precipitation = "mm";
+      document.getElementById("switch-button").textContent =
+        "switch to imperial";
+    }
+  } else if (button.dataset.unitType) {
+    if (button.dataset.category === "temperature") {
+      weatherUnits.temperature = button.dataset.unitType;
+    } else if (button.dataset.category === "wind-speed") {
+      weatherUnits.windSpeed = button.dataset.unitType;
+    } else if (button.dataset.category === "precipitation") {
+      weatherUnits.precipitation = button.dataset.unitType;
+    }
+  }
+
+  refreshDisplay();
 });
 
 //////////////////* functions ///////////////////////
@@ -107,6 +147,7 @@ async function getWeatherStatus(lat, lng, place) {
     let data = await response.json();
     currentWeather = data.current;
     dailyForecast = dailyData(data.daily);
+    currentDayDate = dailyForecast[0].date;
     hourlyForecast = hourlyData(data.hourly);
     let filteredHours = filterHourlyByDay(
       hourlyForecast,
@@ -158,34 +199,79 @@ function filterHourlyByDay(hourlyForecast, day) {
 }
 
 async function searchForPlace(placeName) {
-  let placeResponse = await fetch(
-    `https://geocoding-api.open-meteo.com/v1/search?name=${placeName}`,
-  );
-  let placeData = await placeResponse.json();
-  let place = placeData.results[0];
-  let placeInfo = `${place.name} , ${place.country}`;
-  getWeatherStatus(place.latitude, place.longitude, placeInfo);
+  try {
+    let placeResponse = await fetch(
+      `https://geocoding-api.open-meteo.com/v1/search?name=${placeName}`,
+    );
+    let placeData = await placeResponse.json();
+    if (!placeData.results || placeData.results.length === 0) {
+      document.getElementById("weather-status").classList.add("d-none");
+      document.getElementById("empty-state").classList.remove("d-none");
+      return;
+    }
+    document.getElementById("weather-status").classList.remove("d-none");
+    document.getElementById("empty-state").classList.add("d-none");
+
+    let place = placeData.results[0];
+    let placeInfo = `${place.name} , ${place.country}`;
+    getWeatherStatus(place.latitude, place.longitude, placeInfo);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function celsiusToFahrenheit(c) {
+  return (c * 9) / 5 + 32;
+}
+
+function kmhToMph(km) {
+  return km * 0.621371;
+}
+
+function mmToInches(mm) {
+  return mm * 0.0393701;
+}
+
+function formatTemp(celsius) {
+  let value =
+    weatherUnits.temperature === "fahrenheit"
+      ? celsiusToFahrenheit(celsius)
+      : celsius;
+  return value.toFixed(1);
+}
+
+function formatWind(kmh) {
+  let value = weatherUnits.windSpeed === "mph" ? kmhToMph(kmh) : kmh;
+  return value.toFixed(1);
+}
+
+function formatPrecipitation(mm) {
+  let value = weatherUnits.precipitation === "inches" ? mmToInches(mm) : mm;
+  return value.toFixed(2);
 }
 
 ////////////////////? display data functions ////////////////////////////////
-
 function displayCurrentWeather(current, place) {
   document.getElementById("current-date").textContent =
     `${new Date().toLocaleDateString("en-US", { weekday: "long", day: "numeric", month: "short", year: "numeric" })}`;
   document.getElementById("current-icon").src =
     `./images/${getWeatherIcon(current.weather_code)}`;
-  document.getElementById("current-degree").textContent =
-    `${current.temperature_2m}`;
+  document.getElementById("current-degree").textContent = formatTemp(
+    current.temperature_2m,
+  );
   document.getElementById("city-name").textContent = `${place}`;
-  document.getElementById("feels-like").textContent =
-    `${current.apparent_temperature}`;
+  document.getElementById("feels-like").textContent = formatTemp(
+    current.apparent_temperature,
+  );
   document.getElementById("humidity").textContent =
     `${current.relative_humidity_2m}`;
-  document.getElementById("wind").textContent = `${current.wind_speed_10m}`;
-  document.getElementById("precipitation").textContent =
-    `${current.precipitation}`;
+  document.getElementById("wind").textContent = formatWind(
+    current.wind_speed_10m,
+  );
+  document.getElementById("precipitation").textContent = formatPrecipitation(
+    current.precipitation,
+  );
 }
-
 function displayDailyWeather(dailyForecast) {
   let cartoona = ``;
   for (let i = 0; i < dailyForecast.length; i++) {
@@ -195,8 +281,8 @@ function displayDailyWeather(dailyForecast) {
                                         <img class="w-75" src="./images/${getWeatherIcon(dailyForecast[i].code)}" alt="icon">
                                     </div>
                                     <div class="number d-flex justify-content-between">
-                                        <p class="text-light">${dailyForecast[i].max}&deg;</p>
-                                        <p class="text-light">${dailyForecast[i].min}&deg;</p>
+                                        <p class="text-light">${formatTemp(dailyForecast[i].max)}&deg;</p>
+                                        <p class="text-light">${formatTemp(dailyForecast[i].min)}&deg;</p>
                                     </div>
                                 </div>
                                 `;
@@ -215,7 +301,7 @@ function displayHourlyWeather(hourlyForecast) {
                                     <p class="text-light">${new Date(hourlyForecast[i].date).toLocaleTimeString("en-US", { hour: "numeric" })}</p>
                                 </div>
                                 <div class="number">
-                                    <p class="text-light">${hourlyForecast[i].temperature} &deg;</p>
+                                    <p class="text-light">${formatTemp(hourlyForecast[i].temperature)} &deg;</p>
                                 </div>
                             </div>`;
   }
@@ -230,4 +316,40 @@ function displayDays(day) {
   }
 
   days.innerHTML = cartoona;
+}
+
+function refreshDisplay() {
+  displayCurrentWeather(
+    currentWeather,
+    document.getElementById("city-name").textContent,
+  );
+  displayDailyWeather(dailyForecast);
+  let filteredHours = filterHourlyByDay(hourlyForecast, currentDayDate);
+  displayHourlyWeather(filteredHours);
+  updateCheckmarks();
+  updateUnitLabels();
+}
+
+function updateCheckmarks() {
+  let allOptions = document.querySelectorAll("[data-unit-type]");
+  allOptions.forEach(function (option) {
+    let checkmark = option.querySelector(".checkmark");
+    if (!checkmark) return;
+
+    let category = option.dataset.category;
+    let unitType = option.dataset.unitType;
+    let isSelected =
+      (category === "temperature" && weatherUnits.temperature === unitType) ||
+      (category === "wind-speed" && weatherUnits.windSpeed === unitType) ||
+      (category === "precipitation" && weatherUnits.precipitation === unitType);
+
+    checkmark.classList.toggle("d-none", !isSelected);
+  });
+}
+
+function updateUnitLabels() {
+  document.getElementById("wind-unit").textContent =
+    weatherUnits.windSpeed === "mph" ? "mph" : "km/h";
+  document.getElementById("precipitation-unit").textContent =
+    weatherUnits.precipitation === "inches" ? "in" : "mm";
 }
