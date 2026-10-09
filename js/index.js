@@ -2,6 +2,7 @@
 
 //////////////////? elements //////////////////////
 
+const weatherForecast = document.getElementById("weather-forecast");
 const searchForm = document.querySelector("#search-form");
 const searchBtn = document.querySelector(".search-button");
 const searchInput = document.querySelector("#search-input");
@@ -10,6 +11,8 @@ const dailyStatus = document.getElementById("daily-data");
 const hourlyStatus = document.getElementById("weather-per-hour");
 const days = document.getElementById("days");
 const dayName = document.getElementById("day-name");
+const errorPage = document.getElementById("error-page");
+const retryBtn = document.getElementById("retryBtn");
 
 //////////////////todo  variables //////////////////////
 
@@ -48,6 +51,8 @@ let currentWeather = {};
 let currentDayDate = "";
 let dailyForecast = [];
 let hourlyForecast = [];
+let lastRequest = null;
+
 
 let weatherUnits = {
   temperature: "celsius",
@@ -105,14 +110,28 @@ switchImperial.addEventListener("click", (e) => {
   refreshDisplay();
 });
 
+if (retryBtn) {
+  retryBtn.addEventListener("click", () => {
+    showData();
+    if (typeof lastRequest === "function") {
+      lastRequest();
+    }
+  });
+}
+
 //////////////////* functions ///////////////////////
 
 ////////////////////todo get data functions ////////////////////////////
 
 (function getPosition() {
   if (navigator.geolocation) {
+    lastRequest = function () {
+      showData();
+      getPosition();
+    };
     navigator.geolocation.getCurrentPosition(async (position) => {
       try {
+        errorPage.classList.add("d-none");
         let response = await fetch(
           `https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.coords.latitude}&lon=${position.coords.longitude}`,
         );
@@ -127,6 +146,7 @@ switchImperial.addEventListener("click", (e) => {
           placeName,
         );
       } catch (err) {
+        showError();
         console.error("Error fetching location data:", err);
       }
     });
@@ -143,6 +163,7 @@ async function getWeatherStatus(lat, lng, place) {
   let apiUrl = `${baseUrl}?latitude=${lat}&longitude=${lng}&${currentParams}&${dailyParams}&${hourlyParams}`;
 
   try {
+    showData();
     let response = await fetch(apiUrl);
     let data = await response.json();
     currentWeather = data.current;
@@ -163,6 +184,7 @@ async function getWeatherStatus(lat, lng, place) {
     );
     console.log(data.current);
   } catch (error) {
+    showError();
     console.log(error);
   }
 }
@@ -199,7 +221,11 @@ function filterHourlyByDay(hourlyForecast, day) {
 }
 
 async function searchForPlace(placeName) {
+  lastRequest = function (){
+    searchForPlace(placeName);
+  }
   try {
+    showData();
     let placeResponse = await fetch(
       `https://geocoding-api.open-meteo.com/v1/search?name=${placeName}`,
     );
@@ -216,8 +242,10 @@ async function searchForPlace(placeName) {
     let placeInfo = `${place.name} , ${place.country}`;
     getWeatherStatus(place.latitude, place.longitude, placeInfo);
   } catch (error) {
+    showError();
     console.log(error);
   }
+  
 }
 
 function celsiusToFahrenheit(c) {
@@ -352,4 +380,14 @@ function updateUnitLabels() {
     weatherUnits.windSpeed === "mph" ? "mph" : "km/h";
   document.getElementById("precipitation-unit").textContent =
     weatherUnits.precipitation === "inches" ? "in" : "mm";
+}
+
+function showData() {
+  weatherForecast.classList.remove("d-none");
+  errorPage.classList.add("d-none");
+}
+
+function showError(){
+  weatherForecast.classList.add("d-none");
+  errorPage.classList.remove("d-none");
 }
