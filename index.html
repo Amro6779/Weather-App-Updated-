@@ -75,23 +75,29 @@
         </div>
     </nav>
 
-    <main class="d-flex align-items-center">
-        <div id="weather-forecast" class="container ps-5 ">
-            <h1 class="text-light text-center">How's the Sky Looking Today</h1>
-            <form id="search-form" class="search d-flex justify-content-center mt-4 position-relative">
-                <img src="./images//icon-search.svg" class="search-icon" alt="search-icon">
-                <input id="search-input" type="text" placeholder="Search for a place"
-                    class="search-input ps-5 pt-2 pb-2 rounded-3">
-                <button type="submit" class="search-button btn text-light ms-2 rounded-3">Search</button>
-            </form>
+<main class="d-flex align-items-center">
+    <div id="weather-forecast" class="container ps-5 ">
+        <h1 class="text-light text-center">How's the Sky Looking Today</h1>
+        <form id="search-form" class="search d-flex justify-content-center mt-4 position-relative">
+            <img src="./images/icon-search.svg" class="search-icon" alt="search-icon">
+            <input id="search-input" type="text" placeholder="Search for a place"
+                class="search-input ps-5 pt-2 pb-2 rounded-3">
+            <button type="submit" class="search-button btn text-light ms-2 rounded-3">Search</button>
+        </form>
 
-            
-            
-            <div id="weather-status" class="weather-status container row mt-4">
-                <div class="col-8">
-                    <div class="inner">
-                        <div class="current-weather d-flex justify-content-around align-items-center rounded-4">
-                            <div class="caption ">
+        <div id="weather-status" class="weather-status container row mt-4">
+            <div class="col-8">
+                <div class="inner">
+                    
+                    <div class="current-weather d-flex justify-content-center align-items-center rounded-4 position-relative">
+                        
+                        <div id="spinner" class="text-center d-none">
+                            <div class="loader"></div>
+                            <p class="text-light mt-2 fs-6">Loading...</p>
+                        </div>
+
+                        <div id="current-weather-info" class="d-flex justify-content-around align-items-center w-100">
+                            <div class="caption">
                                 <p id="city-name" class="text-light fs-3"></p>
                                 <p id="current-date" class="text-light fs-6"></p>
                             </div>
@@ -101,160 +107,101 @@
                             </div>
                         </div>
 
-                        <div class="predictions row mt-4 p-0">
-                            <div class="col-3">
-                                <div class="inner">
-                                    <div class="feels-like text-light rounded-3 ">
-                                        <p class="fs-6">Feel's Like</p>
-                                        <p class="fs-4"><span id="feels-like"></span> &deg;</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="inner">
-                                    <div class="humidity text-light rounded-3 ">
-                                        <p class="fs-6">Humidity</p>
-                                        <p class="fs-4"><span id="humidity"></span> %</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="inner">
-                                    <div class="wind text-light rounded-3 ">
-                                        <p class="fs-6">wind</p>
-                                        <p class="fs-4"><span id="wind"></span> <span id="wind-unit">km/h</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="inner">
-                                    <div class="precipitation text-light rounded-3 ">
-                                        <p class="fs-6">precipitation</p>
-                                        <p class="fs-4"><span id="precipitation"></span> <span
-                                                id="precipitation-unit">mm</span></p>
-                                    </div>
+                    </div>
+
+                    <div class="predictions row mt-4 p-0">
+                        <div class="col-3">
+                            <div class="inner">
+                                <div class="feels-like text-light rounded-3 ">
+                                    <p class="fs-6">Feel's Like</p>
+                                    <p class="fs-4"><span id="feels-like">-</span> &deg;</p>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="daily-forecast mt-3 p-0">
-                            <p class="text-light">Daily ForeCast</p>
-                            <div id="daily-data"
-                                class="daily-status d-flex gap-3 justify-content-between mt-2 align-items-stretch">
-                                <div class="Tuesday text-center p-2 rounded-3">
-                                    <div class="caption">
-                                        <p class="text-light"></p>
-                                        <img class="w-75" src="" alt="icon">
-                                    </div>
-                                    <div class="number d-flex justify-content-between">
-                                        <p class="text-light">&deg;</p>
-                                        <p class="text-light">&deg;</p>
-                                    </div>
+                        <div class="col-3">
+                            <div class="inner">
+                                <div class="humidity text-light rounded-3 ">
+                                    <p class="fs-6">Humidity</p>
+                                    <p class="fs-4"><span id="humidity">-</span> %</p>
                                 </div>
-                                <div class="wednesday text-center p-2 rounded-3">
-                                    <div class="caption">
-                                        <p class="text-light"></p>
-                                        <img class="w-75" src="" alt="icon">
-                                    </div>
-                                    <div class="number d-flex justify-content-between">
-                                        <p class="text-light">&deg;</p>
-                                        <p class="text-light">&deg;</p>
-                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="inner">
+                                <div class="wind text-light rounded-3 ">
+                                    <p class="fs-6">wind</p>
+                                    <p class="fs-4"><span id="wind">-</span> <span id="wind-unit">km/h</span></p>
                                 </div>
-                                <div class="thursday text-center p-2 rounded-3">
-                                    <div class="caption">
-                                        <p class="text-light"></p>
-                                        <img class="w-75" src="" alt="icon">
-                                    </div>
-                                    <div class="number d-flex justify-content-between">
-                                        <p class="text-light">&deg;</p>
-                                        <p class="text-light">&deg;</p>
-                                    </div>
-                                </div>
-                                <div class="friday text-center p-2 rounded-3">
-                                    <div class="caption">
-                                        <p class="text-light"></p>
-                                        <img class="w-75" src="" alt="icon">
-                                    </div>
-                                    <div class="number d-flex justify-content-between">
-                                        <p class="text-light">&deg;</p>
-                                        <p class="text-light">&deg;</p>
-                                    </div>
-                                </div>
-                                <div class="saturday text-center p-2 rounded-3">
-                                    <div class="caption">
-                                        <p class="text-light"></p>
-                                        <img class="w-75" src="" alt="icon">
-                                    </div>
-                                    <div class="number d-flex justify-content-between">
-                                        <p class="text-light">&deg;</p>
-                                        <p class="text-light">&deg;</p>
-                                    </div>
-                                </div>
-                                <div class="sunday text-center p-2 rounded-3">
-                                    <div class="caption">
-                                        <p class="text-light"></p>
-                                        <img class="w-75" src="" alt="icon">
-                                    </div>
-                                    <div class="number d-flex justify-content-between">
-                                        <p class="text-light">&deg;</p>
-                                        <p class="text-light">&deg;</p>
-                                    </div>
-                                </div>
-                                <div class="monday text-center p-2 rounded-3">
-                                    <div class="caption">
-                                        <p class="text-light"></p>
-                                        <img class="w-75" src="" alt="icon">
-                                    </div>
-                                    <div class="number d-flex justify-content-between">
-                                        <p class="text-light">&deg;</p>
-                                        <p class="text-light">&deg;</p>
-                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="inner">
+                                <div class="precipitation text-light rounded-3 ">
+                                    <p class="fs-6">precipitation</p>
+                                    <p class="fs-4"><span id="precipitation">-</span> <span id="precipitation-unit">mm</span></p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-4 ">
-                    <div class="hourly-forecast inner p-3 pt-0 rounded-4 position-relative">
-                        <div class="title d-flex justify-content-between position-fixed p-2 pt-3">
-                            <p class="text-light">Hourly forecast</p>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle text-light" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <span id="day-name"></span>
-                                </button>
-                                <ul id="days" class="dropdown-menu p-2">
 
-                                </ul>
-                            </div>
-                        </div>
-                        <div id="weather-per-hour" class="weather-per-hour pt-5">
-
+                    <div class="daily-forecast mt-3 p-0">
+                        <p class="text-light">Daily ForeCast</p>
+                        <div id="daily-data" class="daily-status d-flex gap-3 justify-content-between mt-2 align-items-stretch">
+                            <div class="tuesday text-center p-2 rounded-3 placeholder-card"></div>
+                            <div class="wednesday text-center p-2 rounded-3 placeholder-card"></div>
+                            <div class="thursday text-center p-2 rounded-3 placeholder-card"></div>
+                            <div class="friday text-center p-2 rounded-3 placeholder-card"></div>
+                            <div class="saturday text-center p-2 rounded-3 placeholder-card"></div>
+                            <div class="sunday text-center p-2 rounded-3 placeholder-card"></div>
+                            <div class="monday text-center p-2 rounded-3 placeholder-card"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div id="empty-state" class="empty-state mt-5 text-center text-light d-none">
-                <p>No Search Results Found</p>
+            <div class="col-4 ">
+                <div class="hourly-forecast inner p-3 pt-0 rounded-4 position-relative">
+                    <div class="title d-flex justify-content-between position-fixed p-2 pt-3">
+                        <p class="text-light">Hourly forecast</p>
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span id="day-name">-</span>
+                            </button>
+                            <ul id="days" class="dropdown-menu p-2"></ul>
+                        </div>
+                    </div>
+                    <div id="weather-per-hour" class="weather-per-hour pt-5">
+                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
+                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
+                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
+                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
+                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
+                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
+                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
+                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
+                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
+                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
+                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
+                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
+                    </div>
+                </div>
             </div>
-
-
         </div>
 
-
-
-        <div id="error-page" class="container text-center d-flex flex-column align-items-center d-none">
-            <img class="error-img" src="./images/icon-error.svg" alt="error-icon">
-            <h1 class="text-light mt-4">Something Went Wrong</h1>
-            <p class="error-message text-light mt-2">We Couldn't Connect to the Server (API error). Please Try Again in
-                a few Moments</p>
-            <button id="retryBtn" type="button" class="Retry-btn btn bg-secondary text-light mt-4">
-                <img src="./images/icon-retry.svg" alt="retry-icon"> Retry
-            </button>
+        <div id="empty-state" class="empty-state mt-5 text-center text-light d-none">
+            <p>No Search Results Found</p>
         </div>
-    </main>
+    </div>
+
+    <div id="error-page" class="container text-center d-flex flex-column align-items-center d-none">
+        <img class="error-img" src="./images/icon-error.svg" alt="error-icon">
+        <h1 class="text-light mt-4">Something Went Wrong</h1>
+        <p class="error-message text-light mt-2">We Couldn't Connect to the Server (API error). Please Try Again in a few Moments</p>
+        <button id="retryBtn" type="button" class="Retry-btn btn bg-secondary text-light mt-4">
+            <img src="./images/icon-retry.svg" alt="retry-icon"> Retry
+        </button>
+    </div>
+</main>
 
 
 
