@@ -149,7 +149,6 @@ retryBtn?.addEventListener("click", () => {
         );
       } catch (err) {
         showError();
-        console.error("Error fetching location data:", err);
       }
     });
   }
@@ -190,7 +189,6 @@ async function getWeatherStatus(lat, lng, place) {
     showData();
   } catch (error) {
     showError();
-    console.log(error);
   }
 }
 
@@ -251,7 +249,6 @@ async function searchForPlace(placeName) {
     getWeatherStatus(place.latitude, place.longitude, placeInfo);
   } catch (error) {
     showError();
-    console.log(error);
   }
 }
 
@@ -307,6 +304,7 @@ function displayCurrentWeather(current, place) {
     current.precipitation,
   );
 }
+
 function displayDailyWeather(dailyForecast) {
   let cartoona = ``;
   for (let i = 0; i < dailyForecast.length; i++) {
