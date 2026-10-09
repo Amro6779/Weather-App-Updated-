@@ -172,3 +172,96 @@ optgroup{
 .error-message{
   width: 35%;
 }
+
+@media screen and (max-width: 768px) {
+  main {
+    height: auto;
+    padding-bottom: 40px;
+  }
+
+  #weather-forecast {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  #search-form {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .search-input {
+    width: 100% !important;
+  }
+
+  .search-button {
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding: 12px 0;
+  }
+
+  .search-icon {
+    left: 15px !important;
+    top: 14px !important;
+  }
+
+  .weather-status .col-8,
+  .weather-status .col-4 {
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .weather-status .col-4 {
+    margin-top: 24px;
+  }
+
+  .predictions .col-3 {
+    width: 50% !important;
+    margin-bottom: 15px;
+  }
+
+  .current-weather {
+    flex-direction: column;
+    height: auto;
+    padding: 24px 16px;
+    text-align: center;
+  }
+
+  .current-weather #current-weather-info {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .current-weather .number {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  #daily-data {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px !important;
+  }
+
+  #week-days,
+  .placeholder-card {
+    width: calc(33.333% - 7px) !important;
+    margin-bottom: 8px;
+  }
+
+  .hourly-forecast {
+    height: auto;
+    max-height: 500px;
+  }
+
+  .hourly-forecast .title {
+    position: static !important;
+    width: 100% !important;
+    padding-bottom: 10px !important;
+  }
+
+  .weather-per-hour {
+    padding-top: 0 !important;
+  }
+}
