@@ -30,7 +30,7 @@
 
 body {
   background-color: var(--Neutral900);
-  font-family: cursive;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .loader {
@@ -71,9 +71,9 @@ p{
   margin-bottom: 0;
 }
 
-optgroup{
+/* optgroup{
   color: var(--Neutral300);
-}
+} */
 
 .nav-link {
   background-color: var(--Neutral700);
@@ -84,11 +84,16 @@ optgroup{
   background-color: var(--Neutral700);
 }
 
+#search-form {
+  position: relative;
+}
+
 
 .search-input {
   background-color: var(--Neutral700);
   border: 0;
   width: 30%;
+  padding-left: 3rem !important;
   color: rgba(255, 255, 255, 0.674);
 }
 .search-input::placeholder {
@@ -109,8 +114,9 @@ optgroup{
 
 .search-icon {
   position: absolute;
-  left: 425px;
-  top: 10px;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .current-weather {
@@ -140,7 +146,9 @@ optgroup{
 }
 
 .hourly-forecast .title {
-  width: 23%;
+  position: sticky !important;
+  top: 0;
+  width: 100%;
   background-color: inherit;
 }
 
