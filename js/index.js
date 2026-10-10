@@ -148,6 +148,7 @@ retryBtn?.addEventListener("click", () => {
           placeName,
         );
       } catch (err) {
+        console.warn("Geolocation permission denied or error:", err);
         showError();
       }
     });
