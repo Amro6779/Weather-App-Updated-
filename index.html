@@ -30,44 +30,63 @@
                             Units
                         </a>
                         <ul id="switch-imperial" class="dropdown-menu p-2">
-                            <li><a id="switch-button" data-action="toggle"
-                                    class="dropdown-item text-light rounded-2 mt-2">Switch to imperial</a></li>
-                            <optgroup class="border-bottom fw-lighter" label="Temperature">
-                                <a data-category="temperature" data-unit-type="celsius"
-                                    class="dropdown-item rounded-2 mt-2 d-flex justify-content-between align-items-center text-light">
-                                    <p>Celsius(C&deg;)</p>
-                                    <p class="checkmark d-none">✔</p>
-                                </a>
-                                <a data-category="temperature" data-unit-type="fahrenheit"
-                                    class="dropdown-item rounded-2 mt-2 mb-2 d-flex justify-content-between align-items-center text-light">
-                                    <p>Fahrenheit(F&deg;)</p>
-                                    <p class="checkmark d-none">✔</p>
-                                </a>
-                            </optgroup>
-                            <optgroup class="border-bottom fw-lighter" label="Wind-speed">
-                                <a data-category="wind-speed" data-unit-type="kmh"
-                                    class="dropdown-item rounded-2 mt-2 d-flex justify-content-between align-items-center text-light">
-                                    <p>Km/h</p>
-                                    <p class="checkmark d-none">✔</p>
-                                </a>
-                                <a data-category="wind-speed" data-unit-type="mph"
-                                    class="dropdown-item rounded-2 mt-2 mb-2 d-flex justify-content-between align-items-center text-light">
-                                    <p>mph</p>
-                                    <p class="checkmark d-none">✔</p>
-                                </a>
-                            </optgroup>
-                            <optgroup class="fw-lighter" label="precipitation">
-                                <a data-category="precipitation" data-unit-type="mm"
-                                    class="dropdown-item rounded-2 mt-2 d-flex justify-content-between align-items-center text-light">
-                                    <p>Millimeters(mm)</p>
-                                    <p class="checkmark d-none">✔</p>
-                                </a>
-                                <a data-category="precipitation" data-unit-type="inches"
-                                    class="dropdown-item rounded-2 mt-2 d-flex justify-content-between align-items-center text-light">
-                                    <p>Inches(in)</p>
-                                    <p class="checkmark d-none">✔</p>
-                                </a>
-                            </optgroup>
+                            <li><button type="button" id="switch-button" data-action="toggle"
+                                    class="dropdown-item text-light rounded-2 mt-2 w-100 text-start">Switch to
+                                    imperial</button></li>
+
+                            <li><span
+                                    class="dropdown-header text-muted fw-lighter border-bottom px-2 pb-1 mt-2">Temperature</span>
+                            </li>
+                            <li>
+                                <button type="button" data-category="temperature" data-unit-type="celsius"
+                                    class="dropdown-item rounded-2 mt-2 d-flex justify-content-between align-items-center text-light w-100">
+                                    <span>Celsius (C&deg;)</span>
+                                    <span class="checkmark d-none">✔</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" data-category="temperature" data-unit-type="fahrenheit"
+                                    class="dropdown-item rounded-2 mt-2 mb-2 d-flex justify-content-between align-items-center text-light w-100">
+                                    <span>Fahrenheit (F&deg;)</span>
+                                    <span class="checkmark d-none">✔</span>
+                                </button>
+                            </li>
+
+                            <li><span
+                                    class="dropdown-header text-muted fw-lighter border-bottom px-2 pb-1 mt-2">Wind-speed</span>
+                            </li>
+                            <li>
+                                <button type="button" data-category="wind-speed" data-unit-type="kmh"
+                                    class="dropdown-item rounded-2 mt-2 d-flex justify-content-between align-items-center text-light w-100">
+                                    <span>Km/h</span>
+                                    <span class="checkmark d-none">✔</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" data-category="wind-speed" data-unit-type="mph"
+                                    class="dropdown-item rounded-2 mt-2 mb-2 d-flex justify-content-between align-items-center text-light w-100">
+                                    <span>mph</span>
+                                    <span class="checkmark d-none">✔</span>
+                                </button>
+                            </li>
+
+                            <li><span
+                                    class="dropdown-header text-muted fw-lighter border-bottom px-2 pb-1 mt-2">Precipitation</span>
+                            </li>
+                            <li>
+                                <button type="button" data-category="precipitation" data-unit-type="mm"
+                                    class="dropdown-item rounded-2 mt-2 d-flex justify-content-between align-items-center text-light w-100">
+                                    <span>Millimeters (mm)</span>
+                                    <span class="checkmark d-none">✔</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" data-category="precipitation" data-unit-type="inches"
+                                    class="dropdown-item rounded-2 mt-2 d-flex justify-content-between align-items-center text-light w-100">
+                                    <span>Inches (in)</span>
+                                    <span class="checkmark d-none">✔</span>
+                                </button>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -75,133 +94,163 @@
         </div>
     </nav>
 
-<main class="d-flex align-items-center">
-    <div id="weather-forecast" class="container ps-5 ">
-        <h1 class="text-light text-center">How's the Sky Looking Today</h1>
-        <form id="search-form" class="search d-flex justify-content-center mt-4 position-relative">
-            <img src="./images/icon-search.svg" class="search-icon" alt="search-icon">
-            <input id="search-input" type="text" placeholder="Search for a place"
-                class="search-input ps-5 pt-2 pb-2 rounded-3">
-            <button type="submit" class="search-button btn text-light ms-2 rounded-3">Search</button>
-        </form>
+    <main class="d-flex align-items-center">
+        <div id="weather-forecast" class="container ps-5 ">
+            <h1 class="text-light text-center">How's the Sky Looking Today</h1>
+            <form id="search-form" class="search d-flex justify-content-center mt-4 position-relative">
+                <img src="./images/icon-search.svg" class="search-icon" alt="search-icon">
+                <input id="search-input" type="text" placeholder="Search for a place"
+                    class="search-input ps-5 pt-2 pb-2 rounded-3">
+                <button type="submit" class="search-button btn text-light ms-2 rounded-3">Search</button>
+            </form>
 
-        <div id="weather-status" class="weather-status container row mt-4">
-            <div class="col-8">
-                <div class="inner">
-                    
-                    <div class="current-weather d-flex justify-content-center align-items-center rounded-4 position-relative">
-                        
-                        <div id="spinner" class="text-center d-none">
-                            <div class="loader"></div>
-                            <p class="text-light mt-2 fs-6">Loading...</p>
+            <div id="weather-status" class="weather-status container row mt-4">
+                <div class="col-8">
+                    <div class="inner">
+
+                        <div
+                            class="current-weather d-flex justify-content-center align-items-center rounded-4 position-relative">
+
+                            <div id="spinner" class="text-center d-none">
+                                <div class="loader"></div>
+                                <p class="text-light mt-2 fs-6">Loading...</p>
+                            </div>
+
+                            <div id="current-weather-info"
+                                class="d-flex justify-content-around align-items-center w-100">
+                                <div class="caption">
+                                    <p id="city-name" class="text-light fs-3"></p>
+                                    <p id="current-date" class="text-light fs-6"></p>
+                                </div>
+                                <div class="number d-flex align-items-center justify-content-end w-50">
+                                    <img id="current-icon" class="icon w-25" src="" alt="icon">
+                                    <h2 class="text-light fs-1"><span id="current-degree"></span> &deg;</h2>
+                                </div>
+                            </div>
+
                         </div>
 
-                        <div id="current-weather-info" class="d-flex justify-content-around align-items-center w-100">
-                            <div class="caption">
-                                <p id="city-name" class="text-light fs-3"></p>
-                                <p id="current-date" class="text-light fs-6"></p>
+                        <div class="predictions row mt-4 p-0">
+                            <div class="col-3">
+                                <div class="inner">
+                                    <div class="feels-like text-light rounded-3 ">
+                                        <p class="fs-6">Feel's Like</p>
+                                        <p class="fs-4"><span id="feels-like">-</span> &deg;</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="number d-flex align-items-center justify-content-end w-50">
-                                <img id="current-icon" class="icon w-25" src="" alt="icon">
-                                <h2 class="text-light fs-1"><span id="current-degree"></span> &deg;</h2>
+                            <div class="col-3">
+                                <div class="inner">
+                                    <div class="humidity text-light rounded-3 ">
+                                        <p class="fs-6">Humidity</p>
+                                        <p class="fs-4"><span id="humidity">-</span> %</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="inner">
+                                    <div class="wind text-light rounded-3 ">
+                                        <p class="fs-6">wind</p>
+                                        <p class="fs-4"><span id="wind">-</span> <span id="wind-unit">km/h</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="inner">
+                                    <div class="precipitation text-light rounded-3 ">
+                                        <p class="fs-6">precipitation</p>
+                                        <p class="fs-4"><span id="precipitation">-</span> <span
+                                                id="precipitation-unit">mm</span></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
+                        <div class="daily-forecast mt-3 p-0">
+                            <p class="text-light">Daily ForeCast</p>
+                            <div id="daily-data"
+                                class="daily-status d-flex gap-3 justify-content-between mt-2 align-items-stretch">
+                                <div class="tuesday text-center p-2 rounded-3 placeholder-card"></div>
+                                <div class="wednesday text-center p-2 rounded-3 placeholder-card"></div>
+                                <div class="thursday text-center p-2 rounded-3 placeholder-card"></div>
+                                <div class="friday text-center p-2 rounded-3 placeholder-card"></div>
+                                <div class="saturday text-center p-2 rounded-3 placeholder-card"></div>
+                                <div class="sunday text-center p-2 rounded-3 placeholder-card"></div>
+                                <div class="monday text-center p-2 rounded-3 placeholder-card"></div>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="predictions row mt-4 p-0">
-                        <div class="col-3">
-                            <div class="inner">
-                                <div class="feels-like text-light rounded-3 ">
-                                    <p class="fs-6">Feel's Like</p>
-                                    <p class="fs-4"><span id="feels-like">-</span> &deg;</p>
-                                </div>
+                <div class="col-4 ">
+                    <div class="hourly-forecast inner p-3 pt-0 rounded-4 position-relative">
+                        <div class="title d-flex justify-content-between position-fixed p-2 pt-3">
+                            <p class="text-light">Hourly forecast</p>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle text-light" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <span id="day-name">-</span>
+                                </button>
+                                <ul id="days" class="dropdown-menu p-2"></ul>
                             </div>
                         </div>
-                        <div class="col-3">
-                            <div class="inner">
-                                <div class="humidity text-light rounded-3 ">
-                                    <p class="fs-6">Humidity</p>
-                                    <p class="fs-4"><span id="humidity">-</span> %</p>
-                                </div>
+                        <div id="weather-per-hour" class="weather-per-hour pt-5">
+                            <div
+                                class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly">
                             </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="inner">
-                                <div class="wind text-light rounded-3 ">
-                                    <p class="fs-6">wind</p>
-                                    <p class="fs-4"><span id="wind">-</span> <span id="wind-unit">km/h</span></p>
-                                </div>
+                            <div
+                                class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly">
                             </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="inner">
-                                <div class="precipitation text-light rounded-3 ">
-                                    <p class="fs-6">precipitation</p>
-                                    <p class="fs-4"><span id="precipitation">-</span> <span id="precipitation-unit">mm</span></p>
-                                </div>
+                            <div
+                                class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly">
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="daily-forecast mt-3 p-0">
-                        <p class="text-light">Daily ForeCast</p>
-                        <div id="daily-data" class="daily-status d-flex gap-3 justify-content-between mt-2 align-items-stretch">
-                            <div class="tuesday text-center p-2 rounded-3 placeholder-card"></div>
-                            <div class="wednesday text-center p-2 rounded-3 placeholder-card"></div>
-                            <div class="thursday text-center p-2 rounded-3 placeholder-card"></div>
-                            <div class="friday text-center p-2 rounded-3 placeholder-card"></div>
-                            <div class="saturday text-center p-2 rounded-3 placeholder-card"></div>
-                            <div class="sunday text-center p-2 rounded-3 placeholder-card"></div>
-                            <div class="monday text-center p-2 rounded-3 placeholder-card"></div>
+                            <div
+                                class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly">
+                            </div>
+                            <div
+                                class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly">
+                            </div>
+                            <div
+                                class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly">
+                            </div>
+                            <div
+                                class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly">
+                            </div>
+                            <div
+                                class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly">
+                            </div>
+                            <div
+                                class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly">
+                            </div>
+                            <div
+                                class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly">
+                            </div>
+                            <div
+                                class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly">
+                            </div>
+                            <div
+                                class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-4 ">
-                <div class="hourly-forecast inner p-3 pt-0 rounded-4 position-relative">
-                    <div class="title d-flex justify-content-between position-fixed p-2 pt-3">
-                        <p class="text-light">Hourly forecast</p>
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span id="day-name">-</span>
-                            </button>
-                            <ul id="days" class="dropdown-menu p-2"></ul>
-                        </div>
-                    </div>
-                    <div id="weather-per-hour" class="weather-per-hour pt-5">
-                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
-                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
-                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
-                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
-                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
-                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
-                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
-                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
-                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
-                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
-                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
-                        <div class="hourly-status d-flex justify-content-between align-items-center p-3 rounded-3 mt-2 placeholder-hourly"></div>
-                    </div>
-                </div>
+            <div id="empty-state" class="empty-state mt-5 text-center text-light d-none">
+                <p>No Search Results Found</p>
             </div>
         </div>
 
-        <div id="empty-state" class="empty-state mt-5 text-center text-light d-none">
-            <p>No Search Results Found</p>
+        <div id="error-page" class="container text-center d-flex flex-column align-items-center d-none">
+            <img class="error-img" src="./images/icon-error.svg" alt="error-icon">
+            <h1 class="text-light mt-4">Something Went Wrong</h1>
+            <p class="error-message text-light mt-2">We Couldn't Connect to the Server (API error). Please Try Again in
+                a few Moments</p>
+            <button id="retryBtn" type="button" class="Retry-btn btn bg-secondary text-light mt-4">
+                <img src="./images/icon-retry.svg" alt="retry-icon"> Retry
+            </button>
         </div>
-    </div>
-
-    <div id="error-page" class="container text-center d-flex flex-column align-items-center d-none">
-        <img class="error-img" src="./images/icon-error.svg" alt="error-icon">
-        <h1 class="text-light mt-4">Something Went Wrong</h1>
-        <p class="error-message text-light mt-2">We Couldn't Connect to the Server (API error). Please Try Again in a few Moments</p>
-        <button id="retryBtn" type="button" class="Retry-btn btn bg-secondary text-light mt-4">
-            <img src="./images/icon-retry.svg" alt="retry-icon"> Retry
-        </button>
-    </div>
-</main>
+    </main>
 
 
 

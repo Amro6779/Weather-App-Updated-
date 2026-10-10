@@ -345,9 +345,8 @@ function displayHourlyWeather(hourlyForecast) {
 function displayDays(day) {
   let cartoona = ``;
   for (let i = 0; i < day.length; i++) {
-    cartoona += `<li data-date="${day[i].date}"><a class="dropdown-item text-light rounded-2 mt-2">${new Date(day[i].date).toLocaleDateString("en-US", { weekday: "long" })}</a></li>`;
+    cartoona += `<li data-date="${day[i].date}"><button type="button" class="dropdown-item text-light rounded-2 mt-2 w-100 text-start">${new Date(day[i].date).toLocaleDateString("en-US", { weekday: "long" })}</button></li>`;
   }
-
   days.innerHTML = cartoona;
 }
 
