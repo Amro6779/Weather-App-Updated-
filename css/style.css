@@ -71,9 +71,7 @@ p{
   margin-bottom: 0;
 }
 
-/* optgroup{
-  color: var(--Neutral300);
-} */
+
 
 .nav-link {
   background-color: var(--Neutral700);
@@ -82,6 +80,10 @@ p{
 
 .dropdown-menu {
   background-color: var(--Neutral700);
+}
+
+.dropdown-menu .dropdown-header {
+  color: var(--Neutral300) !important;
 }
 
 #search-form {
