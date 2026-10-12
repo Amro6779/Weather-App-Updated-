@@ -116,7 +116,7 @@ p{
 
 .search-icon {
   position: absolute;
-  left: 1rem;
+  left: 10rem;
   top: 50%;
   transform: translateY(-50%);
 }
