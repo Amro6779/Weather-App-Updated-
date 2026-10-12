@@ -183,7 +183,7 @@ p{
   width: 35%;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   main {
     height: auto;
     padding-bottom: 40px;
@@ -194,6 +194,65 @@ p{
     padding-right: 15px !important;
   }
 
+  .weather-status .col-8,
+  .weather-status .col-4 {
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .weather-status .col-4 {
+    margin-top: 24px;
+  }
+
+  .hourly-forecast {
+    height: auto;
+    max-height: 500px;
+  }
+
+  .hourly-forecast .title {
+    position: static !important;
+    width: 100% !important;
+    padding-bottom: 10px !important;
+  }
+
+  .weather-per-hour {
+    padding-top: 0 !important;
+  }
+
+  .error-img {
+    width: 48px;
+  }
+
+  .error-message {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  #search-form {
+    max-width: 620px;
+    margin-inline: auto;
+  }
+
+  .search-input {
+    flex: 1;
+    width: auto;
+  }
+
+  .search-icon {
+    left: 15px;
+    top: 10px;
+  }
+
+  #daily-data > div {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
   #search-form {
     flex-direction: column;
     align-items: center;
@@ -213,17 +272,6 @@ p{
   .search-icon {
     left: 15px !important;
     top: 14px !important;
-  }
-
-  .weather-status .col-8,
-  .weather-status .col-4 {
-    width: 100% !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-  .weather-status .col-4 {
-    margin-top: 24px;
   }
 
   .predictions .col-3 {
@@ -260,18 +308,7 @@ p{
     margin-bottom: 8px;
   }
 
-  .hourly-forecast {
-    height: auto;
-    max-height: 500px;
-  }
-
-  .hourly-forecast .title {
-    position: static !important;
-    width: 100% !important;
-    padding-bottom: 10px !important;
-  }
-
-  .weather-per-hour {
-    padding-top: 0 !important;
+  .error-message {
+    width: 90%;
   }
 }
