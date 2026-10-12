@@ -239,11 +239,11 @@ p{
     flex: 1;
     width: auto;
   }
-
+/* 
   .search-icon {
     left: 15px;
     top: 10px;
-  }
+  } */
 
   #daily-data > div {
     flex: 1 1 0;
@@ -269,10 +269,10 @@ p{
     padding: 12px 0;
   }
 
-  .search-icon {
+  /* .search-icon {
     left: 15px !important;
     top: 14px !important;
-  }
+  } */
 
   .predictions .col-3 {
     width: 50% !important;
